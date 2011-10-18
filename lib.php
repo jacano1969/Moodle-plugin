@@ -19,17 +19,7 @@ defined('MOODLE_INTERNAL') || die();
 function get_students_data($all_students = true, $get_status = true){
 	global $DB;
 	
-	$get_records = 'SELECT us.id, us.firstname, us.lastname, us.email, c.shortname '.($get_status == true ? ', st.publishing_status AS status' : '').'
-	  			 	FROM {user} AS us
-				 	JOIN {course} AS c
-				 	JOIN {students} AS st
-				 	JOIN {course_categories} AS cc
-				 	ON c.category = cc.id
-				 	JOIN {context} AS ctx 
-				 	ON (c.id = ctx.instanceid AND ctx.contextlevel = 50)
-				 	JOIN {role_assignments} AS ra
-				 	'.($get_status == true ? 'WHERE (ra.contextid = ctx.id AND ra.userid = us.id AND st.userid = us.id)' : 'ON (ra.contextid = ctx.id AND ra.userid = us.id)').'
-				 	'.($all_students == true ? '' : 'WHERE (st.publishing_status = 1 AND st.userid = us.id)').'';
+	$get_records = '...';
 	$records = $DB->get_records_sql($get_records);
 	foreach ($records as $record){
 		if($get_status == true){
